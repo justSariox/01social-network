@@ -1,0 +1,26 @@
+.Post {
+    background-color: #222222;
+    border: 1px solid #262626;
+    margin-top: 50px;
+    height: 150px;
+    display: flex;
+}
+
+.PostSender {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-left: 10px;
+}
+
+.PostMessage {
+    margin-left: 50px;
+    margin-top: 20px;
+}
+
+.ProfilePhoto {
+    height: 64px;
+    width: 64px;
+    border-radius: 50%;
+    margin-top: 10px;
+}

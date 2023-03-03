@@ -1,0 +1,10 @@
+.HeaderNotification {
+    display: flex;
+    margin-right: 70px;
+
+}
+
+.NotificationLogo {
+    height: 32px;
+    width: 32px;
+}

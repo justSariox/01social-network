@@ -1,0 +1,15 @@
+.HeaderSearch {
+    display: flex;
+    justify-content: space-between;
+    margin-right: 5px;
+
+}
+
+.SearchLogo {
+    width: 32px;
+    height: 32px;
+}
+
+.SearchInput {
+
+}

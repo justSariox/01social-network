@@ -1,0 +1,29 @@
+.ProfileInfo {
+    margin-left: 100px;
+    margin-top: 100px;
+    display: flex;
+    height: 150px;
+}
+
+.UserInfo {
+    display: flex;
+    flex-direction: column;
+}
+
+.UserInfo img {
+    border-radius: 50%;
+}
+
+.UserDescription {
+    display: flex;
+    flex-direction: column;
+    margin-left: 100px;
+}
+
+.UserDescription span {
+    margin-top: 12px;
+}
+
+.UserDescription span:first-child {
+    margin-top: 0px;
+}

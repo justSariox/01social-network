@@ -1,0 +1,5 @@
+.ContentBlock {
+    display: flex;
+    width: 90%;
+    flex-direction: column;
+}

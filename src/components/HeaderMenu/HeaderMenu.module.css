@@ -1,0 +1,11 @@
+.HeaderLinks {
+    display: flex;
+    justify-content: space-evenly;
+    width: 30%;
+    margin-right: 70px;
+
+}
+
+.HeaderLinks a {
+    margin-right: 20px;
+}
