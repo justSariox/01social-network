@@ -3,3 +3,17 @@
     margin-left: 100px;
 
 }
+
+@media (max-width: 1200px) {
+    .Posts {
+        width: 60%; /* уменьшить ширину постов на 10% */
+    }
+}
+
+@media (max-width: 768px) {
+
+    .Posts {
+        width: 100%; /* установить ширину постов на 100% */
+        margin-left: 0; /* убрать отступ слева у постов */
+    }
+}

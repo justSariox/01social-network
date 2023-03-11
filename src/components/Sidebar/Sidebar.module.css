@@ -7,3 +7,14 @@
     margin-top: 100px;
 
 }
+@media (max-width: 1200px) {
+    .Sidebar {
+        width: 20%; /* увеличить ширину боковой панели на 10% */
+    }
+}
+
+@media (max-width: 768px) {
+    .Sidebar {
+        display: none
+    }
+}

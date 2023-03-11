@@ -9,3 +9,17 @@
 .HeaderLinks a {
     margin-right: 20px;
 }
+
+@media (max-width: 1200px) {
+    /* стили для экранов с максимальной шириной 1200px */
+    .HeaderLinks {
+        width: 40%; /* увеличить ширину ссылок в шапке на 10% */
+    }
+}
+
+@media (max-width: 768px) {
+    .HeaderLinks a {
+        margin-right: 10px;
+        font-size: 14px;
+    }
+}

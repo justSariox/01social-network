@@ -16,11 +16,18 @@
     justify-content: space-between;
     flex-direction: row;
     text-decoration: none;
-    color: white;
+    color: #fff;
 }
 
 .HeaderLogo {
     height: 64px;
     width: 64px;
     margin-right: 70px;
+}
+
+@media (max-width: 768px) {
+    .HeaderLogo {
+        display: none;
+    }
+
 }

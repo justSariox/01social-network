@@ -3,6 +3,7 @@ import './App.css';
 import {Header} from "./components/Header/Header";
 import {Sidebar} from "./components/Sidebar/Sidebar";
 import {Content} from "./components/Content/Content";
+import {Dialogs} from "./Pages/Dialogs/Dialogs";
 
 const App = () => {
     return (
@@ -12,6 +13,7 @@ const App = () => {
                 <div className={'Content'}>
                     <Sidebar/>
                     <Content/>
+                    {/*<Dialogs/>*/}
                 </div>
             </div>
         </div>
