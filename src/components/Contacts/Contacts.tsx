@@ -1,6 +1,10 @@
 import style from "../../Pages/Dialogs/Dialogs.module.css";
 
-export const Contacts = () => {
+type ContactsPropsType = {
+
+}
+
+export const Contacts: React.FC<ContactsPropsType> = (props) => {
     return (
         <div className={style.dialogsList}>
             <ul>

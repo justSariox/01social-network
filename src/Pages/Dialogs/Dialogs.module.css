@@ -15,8 +15,8 @@
 
 .messages {
     display: flex;
+    flex-direction: column;
     max-width: 80%;
-    justify-content: space-between;
     margin-left: 50px;
     margin-top: 10px;
 
@@ -26,6 +26,7 @@
     display: flex;
     justify-content: space-between;
     width: 50%;
+    margin-top: 20px;
 }
 
 .messageIcon {

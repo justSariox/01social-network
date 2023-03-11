@@ -3,7 +3,9 @@ import style from './Dialogs.module.css'
 import {Messages} from "../../components/Messages/Messages";
 import {Contacts} from "../../components/Contacts/Contacts";
 
-export const Dialogs = () => {
+type DialogsPropsType = {}
+
+export const Dialogs: React.FC<DialogsPropsType> = () => {
     return (
         <div className={style.structure}>
             <Contacts/>

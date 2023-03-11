@@ -1,11 +1,16 @@
+import { NavLink } from 'react-router-dom'
 import style from './HeaderMenu.module.css'
 
-export const HeaderMenu = () => {
+type HeaderMenuPropsType = {
+
+}
+
+export const HeaderMenu: React.FC<HeaderMenuPropsType> = (props) => {
     return (
         <div className={style.HeaderLinks}>
-            <a href="#">Home </a>
-            <a href="#">News</a>
-            <a href="#">Messages </a>
+            <NavLink to={"/profile"}>Home </NavLink>
+            <NavLink to={"#"}>News</NavLink>
+            <NavLink to={"/dialogs"}>Messages </NavLink>
         </div>
     )
 }

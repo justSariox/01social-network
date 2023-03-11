@@ -10,7 +10,11 @@ export type PostType = {
     sender: string
 }
 
-export const Posts = () => {
+type PostPropsType = {
+
+}
+
+export const Posts: React.FC<PostPropsType> = () => {
 
     const Posts: PostType[] = [
         {

@@ -5,7 +5,7 @@ type PostPropTypes = {
     PostType: PostType
 }
 
-export const Post = (props: PostPropTypes) => {
+export const Post: React.FC<PostPropTypes> = (props) => {
     return (
         <div className={style.Post}>
             <div className={style.PostSender}>

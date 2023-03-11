@@ -1,6 +1,10 @@
 import style from './ProfileInfo.module.css'
 
-export const ProfileInfo = () => {
+type ProfileInfoPropsType = {
+
+}
+
+export const ProfileInfo: React.FC<ProfileInfoPropsType> = () => {
     return (
         <div className={style.ProfileInfo}>
             <div className={style.UserInfo}>

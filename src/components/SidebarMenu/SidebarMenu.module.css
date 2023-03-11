@@ -1,7 +1,19 @@
 .NavMenu {
-    
+
 }
 
 .NavLink {
     margin-top: 15px;
+    list-style: none;
+}
+
+
+.link {
+    color: white;
+    text-decoration: none;
+}
+
+.activeLink {
+    text-decoration: none;
+    color: gold;
 }
