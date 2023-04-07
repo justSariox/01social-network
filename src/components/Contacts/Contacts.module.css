@@ -1,0 +1,17 @@
+.dialogsList {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    border-right: 1px solid white;
+}
+
+.link {
+    color: white;
+    text-decoration: none;
+}
+
+.activeLink {
+    text-decoration: none;
+    color: gold;
+}
+

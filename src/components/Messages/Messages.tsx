@@ -1,28 +1,19 @@
 import style from "../../Pages/Dialogs/Dialogs.module.css";
+import {Message} from "../Message/Message";
+import {MessagesType} from "../../redux/state";
+
 
 type MessagesPropsType = {
-
+    messages: MessagesType[]
 }
 
-export const Messages: React.FC<MessagesPropsType> = () => {
+export const Messages: React.FC<MessagesPropsType> = ({messages}) => {
+
+    const mappedMessages = messages.map(message => <Message key={message.id} icon={message.icon} message={message.message}/>)
+
     return (
         <div className={style.messages}>
-            <div className={style.message}>
-                <img className={style.messageIcon} src="https://www.iconninja.com/files/873/712/901/bebo-media-network-social-icon.png" alt="logo"/>
-                <span>dfgfgdfgfgddfgfgdfgfgd</span>
-
-            </div>
-            <div className={style.message}>
-                <img className={style.messageIcon} src="https://www.iconninja.com/files/873/712/901/bebo-media-network-social-icon.png" alt="logo"/>
-                <span>dfgfgdfgfgddfgfgdfgfgd</span>
-
-            </div>
-            <div className={style.message}>
-                <img className={style.messageIcon} src="https://www.iconninja.com/files/873/712/901/bebo-media-network-social-icon.png" alt="logo"/>
-                <span>dfgfgdfgfgddfgfgdfgfgd</span>
-
-            </div>
-
+            {mappedMessages}
         </div>
     )
 }
