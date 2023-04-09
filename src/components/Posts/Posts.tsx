@@ -1,33 +1,46 @@
 import {Post} from "../Post/Post";
 
 import style from './Posts.module.css'
-import {PostType} from "../../redux/state";
-import {useRef} from "react";
+import {ActionsType, PostType} from "../../redux/state";
+import { KeyboardEvent, ChangeEvent} from "react";
 
 
 type PostPropsType = {
     posts: PostType[]
+    dispatch: (action: ActionsType) => void
+    newPostText: string
+
 }
 
-export const Posts: React.FC<PostPropsType> = ({posts}) => {
-    let newPost = useRef<HTMLTextAreaElement>(null)
-    const addPost = () => newPost.current !== null ? alert(newPost.current.value) : ''
+export const Posts: React.FC<PostPropsType> = ({posts, ...props}) => {
+    const addPost = () => {
+            props.dispatch({type: "ADD-POST", postText: props.newPostText})
+    }
 
-    const mappedPosts = posts.map((post, index) => <Post key={index} Post={post}/>)
+    const OnPressKeyEnter = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+        if (e.key === 'Enter') {
+        e.preventDefault()
+            addPost()
+        }
+    }
+
+    const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        props.dispatch({ type: 'UPDATE-NEW-POST-TEXT', newText: e.target.value})
+
+    }
+
+    const mappedPosts = posts.map(post => <Post key={post.id} Post={post}/>)
 
 
+    return (
+        <div className={style.Posts}>
+            <h3>My posts</h3>
+            <div>
+                <textarea onKeyPress={OnPressKeyEnter} value={props.newPostText} onChange={onPostChange}/>
+                <button onClick={addPost}>add new</button>
+            </div>
+            {mappedPosts}
 
-
-
-return (
-    <div className={style.Posts}>
-        <h3>My posts</h3>
-        <div>
-            <textarea ref={newPost} placeholder={'what are you want say'}/>
-            <button onClick={addPost}>add new</button>
         </div>
-        {mappedPosts}
-
-    </div>
-)
+    )
 }

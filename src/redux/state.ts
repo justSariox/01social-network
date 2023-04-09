@@ -1,6 +1,12 @@
-export type PostType = {
-    id: number,
-    message: string,
+// let rerenderEntireTree = () => {
+//     console.log('state changed')
+// }
+
+
+const msgIcon = 'https://www.iconninja.com/files/873/712/901/bebo-media-network-social-icon.png'
+
+export type PostType = { id: number,
+    message: string
     image: string,
     time: string,
     sender: string
@@ -14,8 +20,10 @@ export type ContactType = {
 export type MessagesType = {
     id: number, message: string, icon: string
 }
+
 export type ProfilePageType = {
     posts: PostType[]
+    newPostText: string
 }
 
 export type DialogsPageType = {
@@ -26,15 +34,13 @@ export type DialogsPageType = {
 export type StateType = {
     DialogsPage: DialogsPageType
     ProfilePage: ProfilePageType
-}
 
-const msgIcon = 'https://www.iconninja.com/files/873/712/901/bebo-media-network-social-icon.png'
+}
 const ContactList: ContactType[] = [
     {id: 1, name: 'Mikhail'},
     {id: 2, name: 'Ksenia'},
     {id: 3, name: 'Andrei'},
 ]
-
 const MessagesList: MessagesType[] = [
     {id: 1, message: 'Hi', icon: msgIcon},
     {id: 2, message: 'How are you', icon: msgIcon},
@@ -66,13 +72,95 @@ const PostsData: PostType[] = [
         likesCount: 999
     }]
 
+export type AddPostActionType = {
+    type: 'ADD-POST',
+    postText: string
+}
 
-export const state: StateType = {
+export type ChangeNewTextActionType = {
+    type: 'UPDATE-NEW-POST-TEXT',
+    newText: string
+}
+
+export type ActionsType = AddPostActionType | ChangeNewTextActionType
+
+export interface StoreType   {
+    _state: StateType,
+    _callSubscriber: () => void
+
+    // addPost: () => void
+    // onChangePost: (newPostText: string) => void
+    dispatch: (action: AddPostActionType | ChangeNewTextActionType) => void
+
+    subscribe: (observer: () => void) => void
+    getState: () => StateType
+
+}
+
+export const store: StoreType = {
+    _state: {
     ProfilePage: {
-        posts: [...PostsData]
+        posts: [...PostsData],
+        newPostText: ''
     },
     DialogsPage: {
         contacts: [...ContactList],
         messages: [...MessagesList]
     }
+},
+
+    _callSubscriber() {
+        console.log('state changed')
+    },
+
+    subscribe (observer: () => void) {
+        this._callSubscriber = observer
+    },
+    getState() {
+        return this._state
+    },
+
+    // addPost() {
+
+        // const newPost: PostType = {
+        //     id: Math.random()*10,
+        //     message: this._state.ProfilePage.newPostText,
+        //     image: msgIcon,
+        //     likesCount: Math.ceil(Math.random()*10),
+        //     time: '0:00',
+        //     sender: 'Artem'
+        // }
+        // this._state.ProfilePage.posts.unshift(newPost)
+        // this._state.ProfilePage.newPostText = ''
+        // this._callSubscriber()
+    // },
+    // onChangePost (newPostText: string ) {
+        // this._state.ProfilePage.newPostText = newPostText
+        // this._callSubscriber()
+    // },
+    dispatch(action: ActionsType) { // { type: 'ADD-POST' }
+        switch (action.type) {
+            case 'ADD-POST':
+                const newPost: PostType = {
+                    id: Math.random() * 10,
+                    message: action.postText,
+                    image: msgIcon,
+                    likesCount: Math.ceil(Math.random() * 10),
+                    time: '0:00',
+                    sender: 'Artem'
+                }
+                this._state.ProfilePage.posts.unshift(newPost)
+                this._state.ProfilePage.newPostText = ''
+                this._callSubscriber()
+                break;
+            case 'UPDATE-NEW-POST-TEXT':
+                this._state.ProfilePage.newPostText = action.newText
+                this._callSubscriber()
+                break;
+        }
+    },
 }
+
+
+
+
