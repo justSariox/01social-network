@@ -97,6 +97,9 @@ export interface StoreType   {
 
 }
 
+const ADD_POST = 'ADD-POST'
+const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
+
 export const store: StoreType = {
     _state: {
     ProfilePage: {
@@ -115,6 +118,7 @@ export const store: StoreType = {
 
     subscribe (observer: () => void) {
         this._callSubscriber = observer
+        console.log('state changed')
     },
     getState() {
         return this._state
@@ -140,7 +144,7 @@ export const store: StoreType = {
     // },
     dispatch(action: ActionsType) { // { type: 'ADD-POST' }
         switch (action.type) {
-            case 'ADD-POST':
+            case ADD_POST:
                 const newPost: PostType = {
                     id: Math.random() * 10,
                     message: action.postText,
@@ -153,7 +157,7 @@ export const store: StoreType = {
                 this._state.ProfilePage.newPostText = ''
                 this._callSubscriber()
                 break;
-            case 'UPDATE-NEW-POST-TEXT':
+            case UPDATE_NEW_POST_TEXT:
                 this._state.ProfilePage.newPostText = action.newText
                 this._callSubscriber()
                 break;
@@ -161,6 +165,10 @@ export const store: StoreType = {
     },
 }
 
+export const UpdateNewPostActionCreator = (text: string) => ({type: UPDATE_NEW_POST_TEXT, newText: text})
+
+
+export const AddPostActionCreator = (post: string) => ({type: ADD_POST, postText: post})
 
 
 

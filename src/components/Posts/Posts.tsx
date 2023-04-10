@@ -1,7 +1,7 @@
 import {Post} from "../Post/Post";
 
 import style from './Posts.module.css'
-import {ActionsType, PostType} from "../../redux/state";
+import {ActionsType, AddPostActionCreator, PostType, UpdateNewPostActionCreator} from "../../redux/state";
 import { KeyboardEvent, ChangeEvent} from "react";
 
 
@@ -12,9 +12,13 @@ type PostPropsType = {
 
 }
 
+
+
 export const Posts: React.FC<PostPropsType> = ({posts, ...props}) => {
     const addPost = () => {
-            props.dispatch({type: "ADD-POST", postText: props.newPostText})
+            // props.dispatch({type: "ADD-POST", postText: props.newPostText})
+        const action = AddPostActionCreator(props.newPostText) as ActionsType
+        props.dispatch(action )
     }
 
     const OnPressKeyEnter = (e: KeyboardEvent<HTMLTextAreaElement>) => {
@@ -25,8 +29,9 @@ export const Posts: React.FC<PostPropsType> = ({posts, ...props}) => {
     }
 
     const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch({ type: 'UPDATE-NEW-POST-TEXT', newText: e.target.value})
-
+        // props.dispatch({ type: 'UPDATE-NEW-POST-TEXT', newText: e.target.value})
+        const action = UpdateNewPostActionCreator(e.currentTarget.value) as ActionsType
+        props.dispatch(action)
     }
 
     const mappedPosts = posts.map(post => <Post key={post.id} Post={post}/>)
