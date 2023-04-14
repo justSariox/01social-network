@@ -1,7 +1,8 @@
 import style from "../../Pages/Dialogs/Dialogs.module.css";
 import {Message} from "../Message/Message";
-import {ActionsType, AddMessageActionCreator, MessagesType, UpdateMessageTextActionCreator} from "../../redux/state";
-import {ChangeEvent, KeyboardEvent, useRef} from "react";
+import {ActionsType, MessagesType} from "../../redux/state";
+import {ChangeEvent, KeyboardEvent} from "react";
+import {AddMessageActionCreator, UpdateMessageTextActionCreator} from "../../redux/DialogsReducer";
 
 
 type MessagesPropsType = {

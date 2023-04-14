@@ -3,6 +3,9 @@
 // }
 
 
+import ProfileReducer from "./ProfileReducer";
+import DialogsReducer from "./DialogsReducer";
+
 const msgIcon = 'https://www.iconninja.com/files/873/712/901/bebo-media-network-social-icon.png'
 
 export type PostType = {
@@ -113,10 +116,10 @@ export interface StoreType {
 
 }
 
-const ADD_POST = 'ADD-POST'
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
-const ADD_NEW_MESSAGE_TEXT = 'ADD-NEW-MESSAGE-TEXT'
-const ADD_NEW_MESSAGE = 'ADD-NEW-MESSAGE'
+// const ADD_POST = 'ADD-POST'
+// const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
+// const ADD_NEW_MESSAGE_TEXT = 'ADD-NEW-MESSAGE-TEXT'
+// const ADD_NEW_MESSAGE = 'ADD-NEW-MESSAGE'
 
 export const store: StoreType = {
     _state: {
@@ -162,49 +165,51 @@ export const store: StoreType = {
     // this._callSubscriber()
     // },
     dispatch(action: ActionsType) { // { type: 'ADD-POST' }
-        switch (action.type) {
-            case ADD_POST:
-                const newPost: PostType = {
-                    id: Math.random() * 10,
-                    message: action.postText,
-                    image: msgIcon,
-                    likesCount: Math.ceil(Math.random() * 10),
-                    time: '0:00',
-                    sender: 'Artem'
-                }
-                this._state.ProfilePage.posts.unshift(newPost)
-                this._state.ProfilePage.newPostText = ''
-                this._callSubscriber()
-                break;
-            case UPDATE_NEW_POST_TEXT:
-                this._state.ProfilePage.newPostText = action.newText
-                this._callSubscriber()
-                break;
-            case ADD_NEW_MESSAGE_TEXT:
-                this._state.DialogsPage.newMessageText = action.newMessageText
-                this._callSubscriber()
-                break;
-            case ADD_NEW_MESSAGE:
-                let newMessage = this._state.DialogsPage.newMessageText
-                this._state.DialogsPage.newMessageText = ''
-                this._state.DialogsPage.messages.push({id: Math.random() * 10, message: newMessage, icon: msgIcon})
-                this._callSubscriber()
-        }
+        this._state.ProfilePage = ProfileReducer(this._state.ProfilePage, action)
+        this._state.DialogsPage = DialogsReducer(this._state.DialogsPage, action)
+        this._callSubscriber()
+        // switch (action.type) {
+            // case ADD_POST:
+            //     const newPost: PostType = {
+            //         id: Math.random() * 10,
+            //         message: action.postText,
+            //         image: msgIcon,
+            //         likesCount: Math.ceil(Math.random() * 10),
+            //         time: '0:00',
+            //         sender: 'Artem'
+            //     }
+            //     this._state.ProfilePage.posts.unshift(newPost)
+            //     this._state.ProfilePage.newPostText = ''
+            //     this._callSubscriber()
+            //     break;
+            // case UPDATE_NEW_POST_TEXT:
+            //     this._state.ProfilePage.newPostText = action.newText
+            //     this._callSubscriber()
+            //     break;
+            // case ADD_NEW_MESSAGE_TEXT:
+            //     this._state.DialogsPage.newMessageText = action.newMessageText
+            //     this._callSubscriber()
+            //     break;
+            // case ADD_NEW_MESSAGE:
+            //     let newMessage = this._state.DialogsPage.newMessageText
+            //     this._state.DialogsPage.newMessageText = ''
+            //     this._state.DialogsPage.messages.push({id: Math.random() * 10, message: newMessage, icon: msgIcon})
+            //     this._callSubscriber()
+        // }
 
     },
 }
 
-export const UpdateNewPostActionCreator = (text: string) => ({type: UPDATE_NEW_POST_TEXT, newText: text})
+// export const UpdateNewPostActionCreator = (text: string) => ({type: UPDATE_NEW_POST_TEXT, newText: text})
+//
+// export const AddPostActionCreator = (post: string) => ({type: ADD_POST, postText: post})
 
-
-export const AddPostActionCreator = (post: string) => ({type: ADD_POST, postText: post})
-
-
-export const AddMessageActionCreator = (message: string) => ({type: ADD_NEW_MESSAGE, newMessage: message})
-export const UpdateMessageTextActionCreator = (newMessageText: string) => ({
-    type: ADD_NEW_MESSAGE_TEXT,
-    newMessageText: newMessageText
-})
+// export const AddMessageActionCreator = (message: string) => ({type: ADD_NEW_MESSAGE, newMessage: message})
+//
+// export const UpdateMessageTextActionCreator = (newMessageText: string) => ({
+//     type: ADD_NEW_MESSAGE_TEXT,
+//     newMessageText: newMessageText
+// })
 
 
 

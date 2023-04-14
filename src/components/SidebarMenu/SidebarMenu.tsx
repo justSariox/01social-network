@@ -3,7 +3,7 @@ import {NavLink} from "react-router-dom";
 
 type SidebarMenuPropsType = {}
 
-type SidebarType = {}
+// type SidebarType = {}
 
 
 export const SidebarMenu: React.FC<SidebarMenuPropsType> = () => {

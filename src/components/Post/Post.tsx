@@ -14,7 +14,7 @@ export const Post: React.FC<PostPropTypes> = ({Post}) => {
             <div className={style.PostSender}>
                 <img className={style.ProfilePhoto}
                      src={Post.image}
-                     alt="photo"/>
+                     alt=""/>
                 <span>{Post.sender}</span>
                 <span>{Post.time}</span>
             </div>

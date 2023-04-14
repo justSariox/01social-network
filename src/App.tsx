@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './App.css';
 import {Header} from "./components/Header/Header";
 import {Sidebar} from "./components/Sidebar/Sidebar";
 import {Content} from "./components/Content/Content";
 import {Dialogs} from "./Pages/Dialogs/Dialogs";
 import {Route} from "react-router-dom";
-import {ActionsType, StateType, store} from "./redux/state";
+import {ActionsType, StateType} from "./redux/state";
 
 
 
