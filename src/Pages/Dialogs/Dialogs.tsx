@@ -2,21 +2,22 @@ import React from "react";
 import style from './Dialogs.module.css'
 import {Messages} from "../../components/Messages/Messages";
 import {Contacts} from "../../components/Contacts/Contacts";
-import {DialogsPageType} from "../../redux/state";
+import {ActionsType, DialogsPageType} from "../../redux/state";
 
 
 type DialogsPropsType = {
     DialogsPageState: DialogsPageType
+    dispatch: (action: ActionsType) => void
 }
 
 
-export const Dialogs: React.FC<DialogsPropsType> = ({DialogsPageState}) => {
+export const Dialogs: React.FC<DialogsPropsType> = ({DialogsPageState, dispatch}) => {
 
 
     return (
         <div className={style.structure}>
             <Contacts contacts={DialogsPageState.contacts}/>
-            <Messages messages={DialogsPageState.messages}/>
+            <Messages messages={DialogsPageState.messages} dispatch={dispatch} newMessageText={DialogsPageState.newMessageText}/>
         </div>
     )
 }

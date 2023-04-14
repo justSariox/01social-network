@@ -1,19 +1,33 @@
 import style from "../../Pages/Dialogs/Dialogs.module.css";
 import {Message} from "../Message/Message";
-import {MessagesType} from "../../redux/state";
-import {useRef} from "react";
+import {ActionsType, AddMessageActionCreator, MessagesType, UpdateMessageTextActionCreator} from "../../redux/state";
+import {ChangeEvent, KeyboardEvent, useRef} from "react";
 
 
 type MessagesPropsType = {
     messages: MessagesType[]
+    dispatch: (action: ActionsType) => void
+    newMessageText: string
 }
 
-export const Messages: React.FC<MessagesPropsType> = ({messages}) => {
+export const Messages: React.FC<MessagesPropsType> = ({messages,dispatch, ...props}) => {
 
-    const newMessage = useRef<HTMLTextAreaElement>(null)
-    const sendMessage = () => newMessage.current !== null
-        ? alert(newMessage.current.value.trim())
-        : ''
+    const onChangeTextArea = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        const action = UpdateMessageTextActionCreator(e.currentTarget.value) as ActionsType
+        dispatch(action)
+    }
+
+    const addMessage = () => {
+       const action = AddMessageActionCreator(props.newMessageText) as ActionsType
+        dispatch(action)
+    }
+
+    const OnPressKeyEnter = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+        if (e.key === 'Enter') {
+            e.preventDefault()
+            addMessage()
+        }
+    }
     const mappedMessages = messages.map(message =>
         <Message key={message.id}
                  icon={message.icon}
@@ -24,8 +38,8 @@ export const Messages: React.FC<MessagesPropsType> = ({messages}) => {
         <div className={style.messages}>
             <div>{mappedMessages}</div>
             <div>
-                <textarea ref={newMessage}></textarea>
-                <button onClick={sendMessage}>send</button>
+                <textarea value={props.newMessageText} onChange={onChangeTextArea} onKeyPress={OnPressKeyEnter}> </textarea>
+                <button onClick={addMessage}>send</button>
             </div>
         </div>
     )

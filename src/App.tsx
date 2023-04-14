@@ -36,6 +36,7 @@ const App: React.FC<AppPropsType> = ({state, dispatch,}) => {
                         <Route path={'/dialogs/'} render={() =>
                             <Dialogs
                                 DialogsPageState={state.DialogsPage}
+                                dispatch={dispatch}
                             />}
                         />
                     </>

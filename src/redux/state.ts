@@ -5,7 +5,8 @@
 
 const msgIcon = 'https://www.iconninja.com/files/873/712/901/bebo-media-network-social-icon.png'
 
-export type PostType = { id: number,
+export type PostType = {
+    id: number,
     message: string
     image: string,
     time: string,
@@ -29,6 +30,7 @@ export type ProfilePageType = {
 export type DialogsPageType = {
     contacts: ContactType[]
     messages: MessagesType[]
+    newMessageText: string
 }
 
 export type StateType = {
@@ -82,15 +84,29 @@ export type ChangeNewTextActionType = {
     newText: string
 }
 
-export type ActionsType = AddPostActionType | ChangeNewTextActionType
+export type AddNewMessageTextActionType = {
+    type: 'ADD-NEW-MESSAGE-TEXT',
+    newMessageText: string
+}
 
-export interface StoreType   {
+export type AddNewMessageActionType = {
+    type: 'ADD-NEW-MESSAGE',
+    newMessage: string
+}
+
+export type ActionsType =
+    AddPostActionType
+    | ChangeNewTextActionType
+    | AddNewMessageTextActionType
+    | AddNewMessageActionType
+
+export interface StoreType {
     _state: StateType,
     _callSubscriber: () => void
 
     // addPost: () => void
     // onChangePost: (newPostText: string) => void
-    dispatch: (action: AddPostActionType | ChangeNewTextActionType) => void
+    dispatch: (action: ActionsType) => void
 
     subscribe: (observer: () => void) => void
     getState: () => StateType
@@ -99,24 +115,27 @@ export interface StoreType   {
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
+const ADD_NEW_MESSAGE_TEXT = 'ADD-NEW-MESSAGE-TEXT'
+const ADD_NEW_MESSAGE = 'ADD-NEW-MESSAGE'
 
 export const store: StoreType = {
     _state: {
-    ProfilePage: {
-        posts: [...PostsData],
-        newPostText: ''
+        ProfilePage: {
+            posts: [...PostsData],
+            newPostText: ''
+        },
+        DialogsPage: {
+            contacts: [...ContactList],
+            messages: [...MessagesList],
+            newMessageText: ''
+        }
     },
-    DialogsPage: {
-        contacts: [...ContactList],
-        messages: [...MessagesList]
-    }
-},
 
     _callSubscriber() {
         console.log('state changed')
     },
 
-    subscribe (observer: () => void) {
+    subscribe(observer: () => void) {
         this._callSubscriber = observer
         console.log('state changed')
     },
@@ -126,21 +145,21 @@ export const store: StoreType = {
 
     // addPost() {
 
-        // const newPost: PostType = {
-        //     id: Math.random()*10,
-        //     message: this._state.ProfilePage.newPostText,
-        //     image: msgIcon,
-        //     likesCount: Math.ceil(Math.random()*10),
-        //     time: '0:00',
-        //     sender: 'Artem'
-        // }
-        // this._state.ProfilePage.posts.unshift(newPost)
-        // this._state.ProfilePage.newPostText = ''
-        // this._callSubscriber()
+    // const newPost: PostType = {
+    //     id: Math.random()*10,
+    //     message: this._state.ProfilePage.newPostText,
+    //     image: msgIcon,
+    //     likesCount: Math.ceil(Math.random()*10),
+    //     time: '0:00',
+    //     sender: 'Artem'
+    // }
+    // this._state.ProfilePage.posts.unshift(newPost)
+    // this._state.ProfilePage.newPostText = ''
+    // this._callSubscriber()
     // },
     // onChangePost (newPostText: string ) {
-        // this._state.ProfilePage.newPostText = newPostText
-        // this._callSubscriber()
+    // this._state.ProfilePage.newPostText = newPostText
+    // this._callSubscriber()
     // },
     dispatch(action: ActionsType) { // { type: 'ADD-POST' }
         switch (action.type) {
@@ -161,7 +180,17 @@ export const store: StoreType = {
                 this._state.ProfilePage.newPostText = action.newText
                 this._callSubscriber()
                 break;
+            case ADD_NEW_MESSAGE_TEXT:
+                this._state.DialogsPage.newMessageText = action.newMessageText
+                this._callSubscriber()
+                break;
+            case ADD_NEW_MESSAGE:
+                let newMessage = this._state.DialogsPage.newMessageText
+                this._state.DialogsPage.newMessageText = ''
+                this._state.DialogsPage.messages.push({id: Math.random() * 10, message: newMessage, icon: msgIcon})
+                this._callSubscriber()
         }
+
     },
 }
 
@@ -169,6 +198,13 @@ export const UpdateNewPostActionCreator = (text: string) => ({type: UPDATE_NEW_P
 
 
 export const AddPostActionCreator = (post: string) => ({type: ADD_POST, postText: post})
+
+
+export const AddMessageActionCreator = (message: string) => ({type: ADD_NEW_MESSAGE, newMessage: message})
+export const UpdateMessageTextActionCreator = (newMessageText: string) => ({
+    type: ADD_NEW_MESSAGE_TEXT,
+    newMessageText: newMessageText
+})
 
 
 
