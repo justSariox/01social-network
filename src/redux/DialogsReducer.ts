@@ -1,16 +1,26 @@
 const ADD_NEW_MESSAGE_TEXT = 'ADD-NEW-MESSAGE-TEXT'
 const ADD_NEW_MESSAGE = 'ADD-NEW-MESSAGE'
-const DialogsReducer = (state: any, action: any) => {
+
+const initialState = {
+    contacts: [{id: 1, name: 'Mikhail'},
+        {id: 2, name: 'Ksenia'},
+        {id: 3, name: 'Andrei'},],
+    messages: [{id: 1, message: 'Hi', icon: 'msgIcon'},
+        {id: 2, message: 'How are you', icon: 'msgIcon'},
+        {id: 3, message: 'Yo', icon: 'msgIcon'},],
+    newMessageText: ''
+}
+
+const DialogsReducer = (state: any = initialState, action: any) => {
     switch (action.type) {
         case ADD_NEW_MESSAGE_TEXT:
-            state.newMessageText = action.newMessageText
-            break;
+            return {...state, newMessageText: action.newMessageText}
         case ADD_NEW_MESSAGE:
-            let newMessage = state.newMessageText
-            state.newMessageText = ''
-            state.messages.push({id: Math.random() * 10, message: newMessage, icon: ''})
+            let newMessage = {id: 4, message: state.newMessageText, icon: 'msgIcon'}
+            return {...state, messages: [...state.messages, newMessage], newMessageText: ''}
+        default: return state
     }
-    return state;
+
 }
 
 export const AddMessageActionCreator = (message: string) => ({type: ADD_NEW_MESSAGE, newMessage: message})

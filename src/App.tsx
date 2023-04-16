@@ -17,11 +17,14 @@ type AppPropsType = {
 }
 
 
-const App: React.FC<AppPropsType> = ({state, dispatch,}) => {
+const App: React.FC<AppPropsType> = (props) => {
+
+    console.log(props.state)
+    console.log(props.state.dialogsPage)
+    console.log(props.state.profilePage)
     return (
 
         <div className="App">
-
             <div className={'Container'}>
                 <Header/>
                 <div className={'Content'}>
@@ -29,14 +32,14 @@ const App: React.FC<AppPropsType> = ({state, dispatch,}) => {
                     <>
                         <Route path={'/profile'} render={() =>
                             <Content
-                                ProfilePageState={state.ProfilePage}
-                                dispatch={dispatch}
+                                ProfilePageState={props.state.profilePage}
+                                dispatch={props.dispatch}
                             />}
                         />
                         <Route path={'/dialogs/'} render={() =>
                             <Dialogs
-                                DialogsPageState={state.DialogsPage}
-                                dispatch={dispatch}
+                                DialogsPageState={props.state.dialogsPage}
+                                dispatch={props.dispatch}
                             />}
                         />
                     </>

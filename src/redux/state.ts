@@ -37,8 +37,8 @@ export type DialogsPageType = {
 }
 
 export type StateType = {
-    DialogsPage: DialogsPageType
-    ProfilePage: ProfilePageType
+    dialogsPage: DialogsPageType
+    profilePage: ProfilePageType
 
 }
 const ContactList: ContactType[] = [
@@ -123,11 +123,11 @@ export interface StoreType {
 
 export const store: StoreType = {
     _state: {
-        ProfilePage: {
+        profilePage: {
             posts: [...PostsData],
             newPostText: ''
         },
-        DialogsPage: {
+        dialogsPage: {
             contacts: [...ContactList],
             messages: [...MessagesList],
             newMessageText: ''
@@ -165,8 +165,8 @@ export const store: StoreType = {
     // this._callSubscriber()
     // },
     dispatch(action: ActionsType) { // { type: 'ADD-POST' }
-        this._state.ProfilePage = ProfileReducer(this._state.ProfilePage, action)
-        this._state.DialogsPage = DialogsReducer(this._state.DialogsPage, action)
+        this._state.profilePage = ProfileReducer(this._state.profilePage, action)
+        this._state.dialogsPage = DialogsReducer(this._state.dialogsPage, action)
         this._callSubscriber()
         // switch (action.type) {
             // case ADD_POST:
